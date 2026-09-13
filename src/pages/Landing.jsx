@@ -1,5 +1,6 @@
 import { Link } from "react-router-dom";
 import hero from "../assets/characters/flame.png";
+
 export default function Landing() {
   return (
     <div className="ascend">
@@ -21,47 +22,16 @@ export default function Landing() {
           <Link to="/lobby">CHARACTER</Link>
         </nav>
 
-        <div className="player-hud">
+        {/* ================= LOGIN / SIGN UP ================= */}
 
-          <div className="avatar">
-            R
-          </div>
+        <div className="auth-buttons">
+          <Link to="/login" className="login-btn">
+            LOGIN
+          </Link>
 
-          <div className="player-name">
-            <span>PLAYER</span>
-            <strong>RUHI</strong>
-          </div>
-
-          <div className="hud-divider" />
-
-          <div className="level">
-            <span>LV.</span>
-            <strong>17</strong>
-          </div>
-
-          <div className="hud-xp">
-
-            <div className="xp-heading">
-              <span>XP</span>
-              <b>1840 / 2400</b>
-            </div>
-
-            <div className="xp-track">
-              <div className="xp-fill" />
-            </div>
-
-          </div>
-
-          <div className="currency">
-            <span>◆</span>
-            840
-          </div>
-
-          <div className="currency energy">
-            <span>✦</span>
-            12
-          </div>
-
+          <Link to="/signup" className="signup-btn">
+            SIGN UP
+          </Link>
         </div>
 
       </header>
