@@ -63,6 +63,7 @@ router.post("/register", async (req, res) => {
   }
 });
 
+
 // LOGIN
 router.post("/login", async (req, res) => {
   try {
@@ -121,5 +122,74 @@ router.post("/login", async (req, res) => {
     });
   }
 });
+
+
+// CHANGE CHARACTER
+router.put("/character", async (req, res) => {
+  try {
+    const { userId, character } = req.body;
+
+    if (!userId || !character) {
+      return res.status(400).json({
+        message: "User ID and character are required",
+      });
+    }
+
+    const allowedCharacters = [
+      "blue",
+      "demon",
+      "dragon",
+      "fire",
+      "flame",
+      "forest",
+      "fox",
+      "owl",
+      "shadow",
+      "spider",
+      "tech",
+      "violet",
+    ];
+
+    if (!allowedCharacters.includes(character)) {
+      return res.status(400).json({
+        message: "Invalid character",
+      });
+    }
+
+    const user = await User.findByIdAndUpdate(
+      userId,
+      { character },
+      { new: true }
+    );
+
+    if (!user) {
+      return res.status(404).json({
+        message: "User not found",
+      });
+    }
+
+    res.json({
+      message: "Character updated successfully",
+      user: {
+        id: user._id,
+        username: user.username,
+        level: user.level,
+        xp: user.xp,
+        gold: user.gold,
+        rank: user.rank,
+        rp: user.rp,
+        character: user.character,
+      },
+    });
+
+  } catch (error) {
+    console.error(error);
+
+    res.status(500).json({
+      message: "Could not update character",
+    });
+  }
+});
+
 
 export default router;

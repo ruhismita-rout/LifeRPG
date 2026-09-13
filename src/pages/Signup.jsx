@@ -52,12 +52,12 @@ function Signup() {
       <div className="signup-card">
 
         <div className="signup-label">
-          ASCEND // PLAYER REGISTRATION
+          DONEZO // PLAYER REGISTRATION
         </div>
 
         <h1>CREATE YOUR CHARACTER</h1>
 
-        <p>Begin your ASCEND journey.</p>
+        <p>Begin your DONEZO journey.</p>
 
         <form onSubmit={handleSubmit}>
 

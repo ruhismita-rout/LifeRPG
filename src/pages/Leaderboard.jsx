@@ -54,7 +54,7 @@ function Leaderboard() {
       <header className="leaderboard-nav">
 
         <a href="/lobby" className="lb-logo">
-          ASCEND<span>✦</span>
+          DONEZO<span>✦</span>
         </a>
 
         <nav>

@@ -253,7 +253,7 @@ function GameNav({ user }) {
     <header className="game-nav">
 
       <a href="/lobby" className="logo">
-        ASCEND<span>✦</span>
+        DONEZO<span>✦</span>
       </a>
 
       <nav className="game-nav-links">

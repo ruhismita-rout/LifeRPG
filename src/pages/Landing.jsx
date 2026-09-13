@@ -11,7 +11,7 @@ export default function Landing() {
 
         <Link to="/" className="logo">
           <span>✦</span>
-          ASCEND
+          DONEZO
         </Link>
 
         <nav className="top-nav">

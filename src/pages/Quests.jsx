@@ -212,7 +212,7 @@ function Quests() {
 
       <header className="quests-header">
         <div>
-          <p className="eyebrow">ASCEND // MISSIONS</p>
+         <p className="eyebrow">DONEZO // MISSIONS</p>
 
           <h1>QUEST BOARD</h1>
 

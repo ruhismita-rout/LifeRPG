@@ -49,7 +49,7 @@ function Login() {
       <div className="login-card">
 
         <div className="login-label">
-          ASCEND // PLAYER ACCESS
+          DONEZO // PLAYER ACCESS
         </div>
 
         <h1>WELCOME BACK</h1>

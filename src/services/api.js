@@ -1,4 +1,5 @@
 const API_URL = "https://liferpg-api-nx4m.onrender.com/api";
+// const API_URL = "http://localhost:5000/api";
 export async function registerUser(userData) {
   console.log("REGISTER REQUEST:", userData);
 
@@ -127,6 +128,28 @@ export async function getLeaderboard() {
   if (!response.ok) {
     throw new Error(
       data.message || "Could not load leaderboard"
+    );
+  }
+
+  return data;
+}
+export async function updateCharacter(userId, character) {
+  const response = await fetch(`${API_URL}/auth/character`, {
+    method: "PUT",
+    headers: {
+      "Content-Type": "application/json",
+    },
+    body: JSON.stringify({
+      userId,
+      character,
+    }),
+  });
+
+  const data = await response.json();
+
+  if (!response.ok) {
+    throw new Error(
+      data.message || "Could not update character"
     );
   }
 

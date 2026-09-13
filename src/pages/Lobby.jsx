@@ -1,11 +1,41 @@
+import { useState } from "react";
 import { useNavigate } from "react-router-dom";
-import hero from "../assets/characters/flame.png";
+import { updateCharacter } from "../services/api";
 import "./Lobby.css";
+
+import blue from "../assets/characters/blue.png";
+import demon from "../assets/characters/demon.png";
+import dragon from "../assets/characters/dragon.png";
+import fire from "../assets/characters/fire.png";
+import flame from "../assets/characters/flame.png";
+import forest from "../assets/characters/forest.png";
+import fox from "../assets/characters/fox.png";
+import owl from "../assets/characters/owl.png";
+import shadow from "../assets/characters/shadow.png";
+import spider from "../assets/characters/spider.png";
+import tech from "../assets/characters/tech.png";
+import violet from "../assets/characters/violet.png";
+
+const characters = [
+  { name: "Blue", id: "blue", image: blue },
+  { name: "Demon", id: "demon", image: demon },
+  { name: "Dragon", id: "dragon", image: dragon },
+  { name: "Fire", id: "fire", image: fire },
+  { name: "Flame", id: "flame", image: flame },
+  { name: "Forest", id: "forest", image: forest },
+  { name: "Fox", id: "fox", image: fox },
+  { name: "Owl", id: "owl", image: owl },
+  { name: "Shadow", id: "shadow", image: shadow },
+  { name: "Spider", id: "spider", image: spider },
+  { name: "Tech", id: "tech", image: tech },
+  { name: "Violet", id: "violet", image: violet },
+];
 
 function Lobby() {
   const navigate = useNavigate();
 
   const savedUser = localStorage.getItem("user");
+
   const user = savedUser
     ? JSON.parse(savedUser)
     : {
@@ -15,22 +45,92 @@ function Lobby() {
         gold: 100,
         rank: "BRONZE",
         rp: 0,
+        character: "flame",
       };
 
+  const [showCharacters, setShowCharacters] = useState(false);
+
+  const [selectedCharacter, setSelectedCharacter] = useState(
+    user.character || "flame"
+  );
+
+  const [savingCharacter, setSavingCharacter] = useState(false);
+
+  const currentCharacter =
+    characters.find(
+      (character) => character.id === selectedCharacter
+    ) ||
+    characters.find(
+      (character) => character.id === "flame"
+    );
+
   const xpNeeded = user.level * 100;
+
   const xpPercent = Math.min(
     (user.xp / xpNeeded) * 100,
     100
   );
 
+  async function handleCharacterChange(characterId) {
+    setSelectedCharacter(characterId);
+
+    if (!user.id) {
+      const updatedUser = {
+        ...user,
+        character: characterId,
+      };
+
+      localStorage.setItem(
+        "user",
+        JSON.stringify(updatedUser)
+      );
+
+      setShowCharacters(false);
+
+      return;
+    }
+
+    try {
+      setSavingCharacter(true);
+
+      const data = await updateCharacter(
+        user.id,
+        characterId
+      );
+
+      localStorage.setItem(
+        "user",
+        JSON.stringify(data.user)
+      );
+
+      setSelectedCharacter(data.user.character);
+
+      setShowCharacters(false);
+
+    } catch (error) {
+      console.error(
+        "CHARACTER CHANGE ERROR:",
+        error
+      );
+
+      alert(
+        error.message ||
+          "Could not change character."
+      );
+    } finally {
+      setSavingCharacter(false);
+    }
+  }
+
   return (
     <div className="lobby">
 
-      {/* TOP HUD */}
+      {/* ================= TOP HUD ================= */}
+
       <header className="lobby-header">
 
         <div className="lobby-logo">
-          <span>ASCEND</span>
+          <span>DONEZO</span>
           <small>PLAYER LOBBY</small>
         </div>
 
@@ -43,7 +143,9 @@ function Lobby() {
 
           <div className="stat">
             <span>XP</span>
-            <strong>{user.xp}/{xpNeeded}</strong>
+            <strong>
+              {user.xp}/{xpNeeded}
+            </strong>
           </div>
 
           <div className="stat gold-stat">
@@ -52,7 +154,9 @@ function Lobby() {
           </div>
 
           <div className="player-avatar">
-            {user.username?.charAt(0).toUpperCase()}
+            {user.username
+              ?.charAt(0)
+              .toUpperCase()}
           </div>
 
         </div>
@@ -60,13 +164,16 @@ function Lobby() {
       </header>
 
 
-      {/* MAIN GAME AREA */}
+      {/* ================= MAIN GAME AREA ================= */}
+
       <main className="lobby-main">
 
-        {/* LEFT PANEL */}
+        {/* ================= LEFT PANEL ================= */}
+
         <section className="lobby-left">
 
           <div className="welcome-text">
+
             <span className="eyebrow">
               WELCOME BACK, PLAYER
             </span>
@@ -78,10 +185,12 @@ function Lobby() {
             <p>
               Your next level is waiting.
             </p>
+
           </div>
 
 
           {/* RANK CARD */}
+
           <div className="rank-panel">
 
             <div className="panel-label">
@@ -89,20 +198,27 @@ function Lobby() {
             </div>
 
             <div className="rank-main">
+
               <div className="rank-icon">
                 ◆
               </div>
 
               <div>
-                <h2>{user.rank || "BRONZE"}</h2>
+
+                <h2>
+                  {user.rank || "BRONZE"}
+                </h2>
 
                 <p>
                   {user.rp || 0} RP
                 </p>
+
               </div>
+
             </div>
 
             <div className="rank-progress">
+
               <div
                 style={{
                   width: `${Math.min(
@@ -111,6 +227,7 @@ function Lobby() {
                   )}%`,
                 }}
               />
+
             </div>
 
             <small>
@@ -121,25 +238,37 @@ function Lobby() {
 
 
           {/* XP CARD */}
+
           <div className="xp-panel">
 
             <div className="xp-header">
-              <span>LEVEL {user.level}</span>
+
+              <span>
+                LEVEL {user.level}
+              </span>
+
               <span>
                 {user.xp}/{xpNeeded} XP
               </span>
+
             </div>
 
             <div className="xp-bar">
+
               <div
                 style={{
                   width: `${xpPercent}%`,
                 }}
               />
+
             </div>
 
             <p>
-              {xpNeeded - user.xp} XP until next level
+              {Math.max(
+                xpNeeded - user.xp,
+                0
+              )}{" "}
+              XP until next level
             </p>
 
           </div>
@@ -147,20 +276,23 @@ function Lobby() {
         </section>
 
 
-        {/* CHARACTER */}
+        {/* ================= CHARACTER ================= */}
+
         <section className="character-zone">
 
           <div className="character-rings">
+
             <div className="ring ring-one" />
             <div className="ring ring-two" />
             <div className="ring ring-three" />
+
           </div>
 
           <div className="character-glow" />
 
           <img
-            src={hero}
-            alt="ASCEND character"
+            src={currentCharacter.image}
+            alt={`${currentCharacter.name} character`}
             className="lobby-character"
           />
 
@@ -169,15 +301,25 @@ function Lobby() {
           </div>
 
           <div className="character-name">
-            <span>PLAYER CHARACTER</span>
-            <strong>{user.username}</strong>
+
+            <span>
+              PLAYER CHARACTER
+            </span>
+
+            <strong>
+              {currentCharacter.name.toUpperCase()}
+            </strong>
+
           </div>
 
         </section>
 
 
-        {/* RIGHT PANEL */}
+        {/* ================= RIGHT PANEL ================= */}
+
         <section className="lobby-right">
+
+          {/* DAILY RUN */}
 
           <div className="mission-card">
 
@@ -196,7 +338,9 @@ function Lobby() {
             </p>
 
             <button
-              onClick={() => navigate("/quests")}
+              onClick={() =>
+                navigate("/quests")
+              }
             >
               VIEW QUESTS
               <span>→</span>
@@ -205,30 +349,90 @@ function Lobby() {
           </div>
 
 
+          {/* QUICK MENU */}
+
           <div className="quick-menu">
 
-            <button onClick={() => navigate("/quests")}>
+            {/* QUESTS */}
+
+            <button
+              onClick={() =>
+                navigate("/quests")
+              }
+            >
               <span>⚔</span>
+
               <div>
                 <strong>QUESTS</strong>
-                <small>Complete missions</small>
+                <small>
+                  Complete missions
+                </small>
               </div>
+
             </button>
 
-            <button onClick={() => navigate("/ranked")}>
+
+            {/* RANKED */}
+
+            <button
+              onClick={() =>
+                navigate("/ranked")
+              }
+            >
               <span>◆</span>
+
               <div>
                 <strong>RANKED</strong>
-                <small>Climb the ladder</small>
+                <small>
+                  Climb the ladder
+                </small>
               </div>
+
             </button>
 
-            <button onClick={() => navigate("/leaderboard")}>
+
+            {/* LEADERBOARD */}
+
+            <button
+              onClick={() =>
+                navigate("/leaderboard")
+              }
+            >
               <span>♜</span>
+
               <div>
-                <strong>LEADERBOARD</strong>
-                <small>Compare your progress</small>
+                <strong>
+                  LEADERBOARD
+                </strong>
+
+                <small>
+                  Compare your progress
+                </small>
               </div>
+
+            </button>
+
+
+            {/* CHANGE CHARACTER */}
+
+            <button
+              className="change-character-btn"
+              onClick={() =>
+                setShowCharacters(true)
+              }
+            >
+              <span>✦</span>
+
+              <div>
+                <strong>
+                  CHANGE CHARACTER
+                </strong>
+
+                <small>
+                  Choose your hero
+                </small>
+              </div>
+
             </button>
 
           </div>
@@ -238,7 +442,111 @@ function Lobby() {
       </main>
 
 
-      {/* BOTTOM NAV */}
+      {/* ================= CHARACTER SELECTOR ================= */}
+
+      {showCharacters && (
+
+        <div
+          className="character-overlay"
+          onClick={() =>
+            setShowCharacters(false)
+          }
+        >
+
+          <div
+            className="character-selector"
+            onClick={(event) =>
+              event.stopPropagation()
+            }
+          >
+
+            <div className="selector-header">
+
+              <div>
+
+                <span>
+                  DONEZO ARMORY
+                </span>
+
+                <h2>
+                  CHOOSE YOUR CHARACTER
+                </h2>
+
+              </div>
+
+              <button
+                className="close-selector"
+                onClick={() =>
+                  setShowCharacters(false)
+                }
+              >
+                ×
+              </button>
+
+            </div>
+
+
+            {/* CHARACTER GRID */}
+
+            <div className="character-grid">
+
+              {characters.map(
+                (character) => (
+
+                  <button
+                    key={character.id}
+                    className={`character-option ${
+                      selectedCharacter ===
+                      character.id
+                        ? "selected"
+                        : ""
+                    }`}
+                    onClick={() =>
+                      handleCharacterChange(
+                        character.id
+                      )
+                    }
+                    disabled={savingCharacter}
+                  >
+
+                    <div className="character-option-image">
+
+                      <img
+                        src={character.image}
+                        alt={character.name}
+                      />
+
+                    </div>
+
+                    <span>
+                      {character.name.toUpperCase()}
+                    </span>
+
+                    {selectedCharacter ===
+                      character.id && (
+
+                      <small>
+                        ✓ SELECTED
+                      </small>
+
+                    )}
+
+                  </button>
+
+                )
+              )}
+
+            </div>
+
+          </div>
+
+        </div>
+
+      )}
+
+
+      {/* ================= BOTTOM NAV ================= */}
+
       <nav className="lobby-nav">
 
         <button className="active">
@@ -246,17 +554,29 @@ function Lobby() {
           LOBBY
         </button>
 
-        <button onClick={() => navigate("/quests")}>
+        <button
+          onClick={() =>
+            navigate("/quests")
+          }
+        >
           <span>⚔</span>
           QUESTS
         </button>
 
-        <button onClick={() => navigate("/ranked")}>
+        <button
+          onClick={() =>
+            navigate("/ranked")
+          }
+        >
           <span>◆</span>
           RANKED
         </button>
 
-        <button onClick={() => navigate("/leaderboard")}>
+        <button
+          onClick={() =>
+            navigate("/leaderboard")
+          }
+        >
           <span>♜</span>
           LEADERBOARD
         </button>

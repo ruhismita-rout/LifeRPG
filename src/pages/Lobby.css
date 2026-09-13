@@ -749,3 +749,361 @@
     font-size: 8px;
   }
 }
+/* ================= CHARACTER CHANGE ================= */
+
+.change-character-btn {
+  margin-top: 22px;
+  padding: 12px 22px;
+  border: 2px solid #101515;
+  background: #f4b13b;
+  color: #101515;
+  font-weight: 900;
+  font-size: 12px;
+  letter-spacing: 1px;
+  cursor: pointer;
+  box-shadow: 4px 4px 0 #101515;
+  transition: 0.2s ease;
+}
+
+.change-character-btn:hover {
+  transform: translate(3px, 3px);
+  box-shadow: 1px 1px 0 #101515;
+}
+
+.change-character-btn:active {
+  transform: translate(4px, 4px);
+  box-shadow: none;
+}
+
+
+/* ================= CHARACTER OVERLAY ================= */
+
+.character-overlay {
+  position: fixed;
+  inset: 0;
+  z-index: 9999;
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  padding: 30px;
+
+  background: rgba(8, 43, 41, 0.82);
+  backdrop-filter: blur(8px);
+
+  animation: characterOverlayIn 0.2s ease;
+}
+
+
+/* ================= SELECTOR ================= */
+
+.character-selector {
+  width: min(900px, 95vw);
+  max-height: 88vh;
+
+  overflow-y: auto;
+
+  padding: 28px;
+
+  background: #fff8ec;
+
+  border: 3px solid #101515;
+  box-shadow: 10px 10px 0 #101515;
+
+  animation: characterSelectorIn 0.25s ease;
+}
+
+
+/* HEADER */
+
+.selector-header {
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+
+  margin-bottom: 25px;
+}
+
+.selector-header span {
+  display: block;
+
+  font-size: 11px;
+  font-weight: 900;
+  letter-spacing: 2px;
+
+  color: #e0745e;
+}
+
+.selector-header h2 {
+  margin: 5px 0 0;
+
+  font-size: 25px;
+  color: #0f3d3a;
+}
+
+.close-selector {
+  width: 38px;
+  height: 38px;
+
+  border: 2px solid #101515;
+  background: #e0745e;
+
+  color: #fff8ec;
+
+  font-size: 25px;
+  font-weight: 900;
+
+  cursor: pointer;
+
+  box-shadow: 3px 3px 0 #101515;
+}
+
+.close-selector:hover {
+  transform: translate(2px, 2px);
+  box-shadow: 1px 1px 0 #101515;
+}
+
+
+/* ================= CHARACTER GRID ================= */
+
+.character-grid {
+  display: grid;
+
+  grid-template-columns: repeat(6, 1fr);
+
+  gap: 14px;
+}
+
+
+/* CHARACTER CARD */
+
+.character-option {
+  position: relative;
+
+  min-height: 170px;
+
+  padding: 10px;
+
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: flex-end;
+
+  border: 2px solid #101515;
+
+  background: #f2e6d6;
+
+  color: #0f3d3a;
+
+  cursor: pointer;
+
+  box-shadow: 3px 3px 0 #101515;
+
+  transition:
+    transform 0.2s ease,
+    box-shadow 0.2s ease,
+    background 0.2s ease;
+}
+
+.character-option:hover {
+  transform: translateY(-5px);
+  box-shadow: 3px 8px 0 #101515;
+  background: #fff8ec;
+}
+
+.character-option.selected {
+  background: #f4b13b;
+  border-color: #0f3d3a;
+  box-shadow: 4px 4px 0 #0f3d3a;
+}
+
+
+/* IMAGE */
+
+.character-option-image {
+  height: 115px;
+
+  width: 100%;
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  overflow: hidden;
+}
+
+.character-option-image img {
+  height: 115px;
+  max-width: 100%;
+
+  object-fit: contain;
+
+  transition: transform 0.2s ease;
+}
+
+.character-option:hover img {
+  transform: scale(1.08);
+}
+
+
+/* NAME */
+
+.character-option > span {
+  margin-top: 7px;
+
+  font-size: 11px;
+  font-weight: 900;
+  letter-spacing: 1px;
+}
+
+
+/* SELECTED LABEL */
+
+.character-option small {
+  margin-top: 3px;
+
+  font-size: 8px;
+  font-weight: 900;
+
+  color: #0f3d3a;
+}
+
+
+/* ================= ANIMATIONS ================= */
+
+@keyframes characterOverlayIn {
+  from {
+    opacity: 0;
+  }
+
+  to {
+    opacity: 1;
+  }
+}
+
+@keyframes characterSelectorIn {
+  from {
+    opacity: 0;
+    transform: translateY(20px) scale(0.97);
+  }
+
+  to {
+    opacity: 1;
+    transform: translateY(0) scale(1);
+  }
+}
+
+
+/* ================= RESPONSIVE ================= */
+
+@media (max-width: 900px) {
+  .character-grid {
+    grid-template-columns: repeat(4, 1fr);
+  }
+}
+
+@media (max-width: 600px) {
+  .character-selector {
+    padding: 18px;
+  }
+
+  .character-grid {
+    grid-template-columns: repeat(3, 1fr);
+    gap: 10px;
+  }
+
+  .character-option {
+    min-height: 145px;
+  }
+
+  .character-option-image,
+  .character-option-image img {
+    height: 95px;
+  }
+
+  .selector-header h2 {
+    font-size: 19px;
+  }
+}
+/* FIX CHARACTER BUTTON CLICK */
+
+.character-zone {
+  position: relative;
+}
+
+.change-character-btn {
+  position: relative;
+  z-index: 100;
+  pointer-events: auto;
+  cursor: pointer;
+}
+/* ================= CHANGE CHARACTER ================= */
+
+.change-character-btn {
+  width: 100%;
+  min-height: 68px;
+
+  margin-top: 10px;
+  padding: 14px 18px;
+
+  display: flex;
+  align-items: center;
+  gap: 16px;
+
+  border: 2px solid #101515;
+  background: #f4b13b;
+  color: #101515;
+
+  font-family: inherit;
+  text-align: left;
+
+  cursor: pointer;
+
+  box-shadow: 4px 4px 0 #101515;
+
+  transition: all 0.2s ease;
+}
+
+.change-character-btn > span {
+  width: 38px;
+  height: 38px;
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  flex-shrink: 0;
+
+  background: #fff8ec;
+  border: 2px solid #101515;
+
+  font-size: 18px;
+}
+
+.change-character-btn div {
+  display: flex;
+  flex-direction: column;
+  gap: 3px;
+}
+
+.change-character-btn strong {
+  font-size: 13px;
+  letter-spacing: 0.5px;
+}
+
+.change-character-btn small {
+  font-size: 10px;
+  opacity: 0.7;
+}
+
+.change-character-btn:hover {
+  background: #fff8ec;
+  transform: translate(3px, 3px);
+  box-shadow: 1px 1px 0 #101515;
+}
+
+.change-character-btn:active {
+  transform: translate(4px, 4px);
+  box-shadow: none;
+}
