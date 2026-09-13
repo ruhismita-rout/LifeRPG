@@ -1,0 +1,1353 @@
+/* =====================================================
+   ASCEND
+   LIFE RPG
+   EARTHY ADVENTURE THEME
+===================================================== */
+
+:root {
+  --forest: #0F3D3A;
+  --forest-dark: #082B29;
+  --gold: #F4B13B;
+  --terracotta: #E0745E;
+  --sand: #F2E6D6;
+  --cream: #FFF8EC;
+  --black: #101515;
+  --white: #FFFFFF;
+}
+
+
+/* =====================================================
+   RESET
+===================================================== */
+
+* {
+  box-sizing: border-box;
+}
+
+html,
+body,
+#root {
+  width: 100%;
+  min-height: 100%;
+  margin: 0;
+}
+
+body {
+  font-family:
+    Arial,
+    Helvetica,
+    sans-serif;
+
+  background: var(--forest);
+  color: var(--black);
+}
+
+button,
+a {
+  font-family: inherit;
+}
+
+a {
+  text-decoration: none;
+}
+
+
+/* =====================================================
+   MAIN APP
+===================================================== */
+
+.ascend {
+  width: 100%;
+  min-height: 100vh;
+
+  background: var(--forest);
+
+  overflow: hidden;
+}
+
+
+/* =====================================================
+   TOP BAR
+===================================================== */
+
+.topbar {
+  height: 86px;
+
+  display: flex;
+  align-items: center;
+
+  padding: 0 30px;
+
+  background: var(--forest);
+
+  border-bottom: 5px solid var(--black);
+
+  color: var(--cream);
+
+  position: relative;
+  z-index: 100;
+}
+
+
+/* LOGO */
+
+.logo {
+  display: flex;
+  align-items: center;
+
+  gap: 8px;
+
+  color: var(--cream);
+
+  font-size: 30px;
+  font-weight: 1000;
+
+  letter-spacing: -1px;
+}
+
+.logo span {
+  color: var(--gold);
+  font-size: 34px;
+}
+
+
+/* NAV */
+
+.top-nav {
+  display: flex;
+
+  gap: 30px;
+
+  margin-left: 75px;
+}
+
+.top-nav a {
+  color: var(--sand);
+
+  font-size: 13px;
+  font-weight: 900;
+
+  letter-spacing: .5px;
+
+  transition: .2s;
+}
+
+.top-nav a:hover,
+.top-nav a.active {
+  color: var(--gold);
+}
+
+.top-nav a.active {
+  border-bottom: 3px solid var(--gold);
+
+  padding-bottom: 7px;
+}
+
+
+/* PLAYER HUD */
+
+.player-hud {
+  margin-left: auto;
+
+  display: flex;
+  align-items: center;
+
+  gap: 12px;
+}
+
+
+/* avatar */
+
+.avatar {
+  width: 48px;
+  height: 48px;
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  background: var(--gold);
+
+  border: 4px solid var(--black);
+
+  color: var(--black);
+
+  font-size: 21px;
+  font-weight: 1000;
+}
+
+.player-name {
+  display: flex;
+  flex-direction: column;
+}
+
+.player-name span,
+.level span {
+  font-size: 8px;
+  font-weight: 900;
+
+  color: var(--sand);
+}
+
+.player-name strong {
+  font-size: 18px;
+}
+
+.hud-divider {
+  width: 3px;
+  height: 35px;
+
+  background: var(--gold);
+
+  margin: 0 5px;
+}
+
+
+/* level */
+
+.level {
+  display: flex;
+  flex-direction: column;
+}
+
+.level strong {
+  color: var(--gold);
+  font-size: 20px;
+}
+
+
+/* XP */
+
+.hud-xp {
+  width: 170px;
+}
+
+.xp-heading {
+  display: flex;
+  justify-content: space-between;
+
+  margin-bottom: 4px;
+
+  font-size: 8px;
+  font-weight: 900;
+}
+
+.xp-heading b {
+  color: var(--gold);
+}
+
+.xp-track {
+  height: 13px;
+
+  background: var(--forest-dark);
+
+  border: 2px solid var(--black);
+}
+
+.xp-fill {
+  width: 76%;
+  height: 100%;
+
+  background: var(--gold);
+}
+
+
+/* currencies */
+
+.currency {
+  min-width: 100px;
+
+  padding: 11px 16px;
+
+  background: var(--gold);
+
+  color: var(--black);
+
+  border: 4px solid var(--black);
+
+  font-weight: 1000;
+
+  text-align: center;
+}
+
+.currency span {
+  margin-right: 7px;
+  color: var(--forest);
+}
+
+.currency.energy {
+  min-width: 75px;
+
+  background: var(--sand);
+}
+
+
+/* =====================================================
+   GAME WORLD
+===================================================== */
+
+.game-world {
+  height: calc(100vh - 154px);
+
+  min-height: 650px;
+
+  position: relative;
+
+  overflow: hidden;
+
+  background:
+    linear-gradient(
+      180deg,
+      #F4B13B 0%,
+      #F2E6D6 35%,
+      #E0745E 100%
+    );
+}
+
+
+/* =====================================================
+   SUN
+===================================================== */
+
+.sun {
+  position: absolute;
+
+  width: 470px;
+  height: 470px;
+
+  left: 50%;
+  top: 25px;
+
+  transform: translateX(-50%);
+
+  border-radius: 50%;
+
+  background: var(--gold);
+
+  opacity: .85;
+
+  box-shadow:
+    0 0 100px rgba(244, 177, 59, .6);
+}
+
+
+/* =====================================================
+   MOUNTAINS
+===================================================== */
+
+.mountains {
+  position: absolute;
+
+  bottom: 110px;
+
+  width: 100%;
+  height: 260px;
+
+  clip-path: polygon(
+    0 80%,
+    15% 30%,
+    27% 72%,
+    40% 15%,
+    54% 70%,
+    68% 25%,
+    82% 72%,
+    93% 40%,
+    100% 75%,
+    100% 100%,
+    0 100%
+  );
+}
+
+.mountain-back {
+  background: var(--terracotta);
+  opacity: .7;
+}
+
+.mountain-front {
+  bottom: 70px;
+
+  height: 220px;
+
+  background: var(--forest);
+  opacity: .9;
+}
+
+
+/* =====================================================
+   FOREST
+===================================================== */
+
+.forest {
+  position: absolute;
+
+  bottom: 65px;
+
+  width: 350px;
+  height: 300px;
+
+  opacity: .95;
+
+  background:
+    linear-gradient(
+      135deg,
+      transparent 45%,
+      var(--forest) 46%,
+      var(--forest) 55%,
+      transparent 56%
+    );
+
+  background-size: 75px 90px;
+}
+
+.forest-left {
+  left: -40px;
+}
+
+.forest-right {
+  right: -40px;
+
+  transform: scaleX(-1);
+}
+
+
+/* =====================================================
+   DECORATION
+===================================================== */
+
+.leaf {
+  position: absolute;
+
+  color: var(--forest);
+
+  font-size: 30px;
+
+  z-index: 2;
+}
+
+.leaf-one {
+  top: 60px;
+  left: 31%;
+}
+
+.leaf-two {
+  right: 34%;
+  top: 130px;
+
+  color: var(--terracotta);
+}
+
+.leaf-three {
+  left: 26%;
+  top: 390px;
+
+  color: var(--gold);
+}
+
+.bird {
+  position: absolute;
+
+  color: var(--forest);
+
+  font-size: 40px;
+
+  z-index: 2;
+}
+
+.bird-one {
+  top: 125px;
+  left: 52%;
+}
+
+.bird-two {
+  top: 170px;
+  right: 27%;
+}
+
+
+/* =====================================================
+   CARDS
+===================================================== */
+
+.game-card {
+  background: var(--cream);
+
+  border: 5px solid var(--black);
+
+  box-shadow:
+    7px 8px 0 var(--black);
+
+  padding: 18px;
+}
+
+
+/* =====================================================
+   LEFT HUD
+===================================================== */
+
+.left-hud {
+  position: absolute;
+
+  top: 38px;
+  left: 38px;
+
+  width: 305px;
+
+  z-index: 20;
+}
+
+
+/* season */
+
+.season-card {
+  background: var(--forest);
+
+  color: var(--cream);
+}
+
+.season-top {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.season-top span {
+  color: var(--gold);
+
+  font-size: 10px;
+  font-weight: 1000;
+
+  letter-spacing: 3px;
+}
+
+.season-top h1 {
+  margin: 6px 0 0;
+
+  font-size: 30px;
+  line-height: 1;
+}
+
+.season-badge {
+  width: 55px;
+  height: 55px;
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  border: 4px solid var(--gold);
+
+  color: var(--gold);
+
+  font-size: 25px;
+
+  transform: rotate(45deg);
+}
+
+.progress-title {
+  display: flex;
+  justify-content: space-between;
+
+  margin-top: 22px;
+  margin-bottom: 7px;
+
+  font-size: 8px;
+  font-weight: 1000;
+}
+
+.progress-title b {
+  color: var(--gold);
+}
+
+.bar {
+  height: 14px;
+
+  background: var(--forest-dark);
+
+  border: 3px solid var(--black);
+
+  overflow: hidden;
+}
+
+.bar-gold {
+  height: 100%;
+  background: var(--gold);
+}
+
+.season-progress {
+  width: 68%;
+}
+
+
+/* =====================================================
+   SMALL STAT CARDS
+===================================================== */
+
+.stat-grid {
+  display: grid;
+
+  grid-template-columns: 1fr 1fr;
+
+  gap: 12px;
+
+  margin-top: 16px;
+}
+
+.stat-card {
+  min-height: 120px;
+
+  display: flex;
+  flex-direction: column;
+
+  justify-content: center;
+}
+
+.stat-card.streak {
+  background: var(--terracotta);
+  color: var(--cream);
+}
+
+.stat-icon {
+  font-size: 25px;
+
+  margin-bottom: 5px;
+}
+
+.stat-card small {
+  font-size: 8px;
+  font-weight: 1000;
+}
+
+.stat-card strong {
+  margin-top: 4px;
+
+  font-size: 21px;
+}
+
+
+/* =====================================================
+   ATTRIBUTES
+===================================================== */
+
+.attributes {
+  margin-top: 16px;
+}
+
+.attributes h3 {
+  margin: 0 0 18px;
+
+  color: var(--forest);
+
+  font-size: 12px;
+  letter-spacing: 1px;
+}
+
+.attribute {
+  margin-bottom: 16px;
+}
+
+.attribute-heading {
+  display: flex;
+  justify-content: space-between;
+
+  font-size: 9px;
+  font-weight: 1000;
+
+  margin-bottom: 6px;
+}
+
+.attribute-heading b {
+  color: var(--forest);
+}
+
+.attribute-bar {
+  height: 10px;
+
+  background: #D8C7B0;
+
+  border: 2px solid var(--black);
+}
+
+.attribute-bar div {
+  height: 100%;
+
+  background: var(--forest);
+}
+
+
+/* =====================================================
+   CENTER HERO
+===================================================== */
+
+.hero-area {
+  position: absolute;
+
+  left: 50%;
+  top: 48%;
+
+  transform: translate(-50%, -50%);
+
+  width: 540px;
+  height: 600px;
+
+  display: flex;
+  justify-content: center;
+  align-items: center;
+
+  z-index: 10;
+}
+
+
+/* giant sun behind character */
+
+.hero-sun {
+  position: absolute;
+
+  width: 440px;
+  height: 440px;
+
+  border-radius: 50%;
+
+  background: var(--sand);
+
+  border: 5px solid var(--forest);
+
+  opacity: .9;
+}
+
+
+/* rings */
+
+.hero-ring {
+  position: absolute;
+
+  border-radius: 50%;
+
+  border: 3px solid var(--forest);
+
+  opacity: .55;
+}
+
+.ring-one {
+  width: 420px;
+  height: 420px;
+}
+
+.ring-two {
+  width: 360px;
+  height: 360px;
+
+  border-color: var(--terracotta);
+}
+
+
+/* glow */
+
+.character-glow {
+  position: absolute;
+
+  width: 300px;
+  height: 300px;
+
+  border-radius: 50%;
+
+  background:
+    radial-gradient(
+      circle,
+      rgba(244,177,59,.7),
+      transparent 70%
+    );
+
+  filter: blur(20px);
+}
+
+
+/* CHARACTER */
+
+.hero-character {
+  position: relative;
+
+  z-index: 8;
+
+  height: 470px;
+
+  max-width: 360px;
+
+  object-fit: contain;
+
+  filter:
+    drop-shadow(8px 10px 0 var(--black));
+
+  animation:
+    characterFloat 3.5s ease-in-out infinite;
+}
+
+@keyframes characterFloat {
+
+  0%,
+  100% {
+    transform: translateY(0);
+  }
+
+  50% {
+    transform: translateY(-8px);
+  }
+
+}
+
+
+/* platform */
+
+.hero-platform {
+  position: absolute;
+
+  bottom: 70px;
+
+  width: 330px;
+  height: 35px;
+
+  background: var(--terracotta);
+
+  border: 5px solid var(--black);
+
+  box-shadow:
+    8px 8px 0 var(--black);
+
+  z-index: 12;
+}
+
+.hero-platform span {
+  position: absolute;
+
+  width: 9px;
+  height: 9px;
+
+  top: 9px;
+
+  background: var(--gold);
+}
+
+.hero-platform span:nth-child(1) {
+  left: 20%;
+}
+
+.hero-platform span:nth-child(2) {
+  left: 50%;
+}
+
+.hero-platform span:nth-child(3) {
+  left: 80%;
+}
+
+
+/* character title */
+
+.character-label {
+  position: absolute;
+
+  bottom: 4px;
+
+  text-align: center;
+
+  z-index: 20;
+}
+
+.character-label span {
+  color: var(--terracotta);
+
+  font-size: 9px;
+  font-weight: 1000;
+
+  letter-spacing: 3px;
+}
+
+.character-label h2 {
+  margin: 4px 0;
+
+  font-size: 25px;
+  font-weight: 1000;
+
+  color: var(--cream);
+
+  text-shadow:
+    3px 3px 0 var(--black);
+}
+
+.character-label p {
+  margin: 0;
+
+  color: var(--cream);
+
+  font-size: 9px;
+  font-weight: 900;
+
+  letter-spacing: 3px;
+}
+
+
+/* =====================================================
+   RIGHT HUD
+===================================================== */
+
+.right-hud {
+  position: absolute;
+
+  right: 38px;
+  top: 38px;
+
+  width: 310px;
+
+  z-index: 20;
+}
+
+
+/* rank */
+
+.rank-card {
+  background: var(--forest);
+
+  color: var(--cream);
+}
+
+.panel-heading {
+  display: flex;
+  justify-content: space-between;
+
+  font-size: 9px;
+  font-weight: 1000;
+}
+
+.panel-heading b {
+  color: var(--gold);
+}
+
+.rank-content {
+  display: flex;
+  align-items: center;
+
+  gap: 20px;
+
+  margin: 23px 0;
+}
+
+.rank-badge {
+  width: 70px;
+  height: 70px;
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  border: 5px solid var(--gold);
+
+  color: var(--gold);
+
+  transform: rotate(45deg);
+
+  background: rgba(244,177,59,.1);
+}
+
+.rank-badge span {
+  transform: rotate(-45deg);
+
+  font-size: 28px;
+}
+
+.rank-content h2 {
+  margin: 0;
+
+  font-size: 19px;
+}
+
+.rank-content strong {
+  display: block;
+
+  margin-top: 5px;
+
+  color: var(--gold);
+
+  font-size: 16px;
+}
+
+.rank-progress {
+  width: 72%;
+  height: 100%;
+
+  background: var(--gold);
+}
+
+
+/* =====================================================
+   MISSIONS
+===================================================== */
+
+.missions {
+  margin-top: 18px;
+
+  background: var(--terracotta);
+
+  color: var(--cream);
+}
+
+.mission-heading {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+
+  border-bottom: 3px solid rgba(242,230,214,.5);
+
+  padding-bottom: 12px;
+
+  margin-bottom: 3px;
+}
+
+.mission-heading h2 {
+  margin: 0;
+
+  color: var(--gold);
+
+  font-size: 18px;
+}
+
+.mission-heading span {
+  font-size: 9px;
+  font-weight: 1000;
+}
+
+
+.mission {
+  display: flex;
+  align-items: center;
+
+  gap: 12px;
+
+  padding: 13px 0;
+
+  border-bottom: 2px solid rgba(242,230,214,.35);
+}
+
+.mission-check {
+  width: 31px;
+  height: 31px;
+
+  flex-shrink: 0;
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  background: var(--forest);
+
+  border: 3px solid var(--black);
+
+  color: var(--cream);
+
+  font-size: 17px;
+  font-weight: 1000;
+}
+
+.mission-check.completed {
+  background: var(--gold);
+
+  color: var(--forest);
+}
+
+.mission-info {
+  flex: 1;
+}
+
+.mission-info strong {
+  display: block;
+
+  font-size: 12px;
+}
+
+.mission-info small {
+  display: block;
+
+  margin-top: 3px;
+
+  font-size: 8px;
+
+  opacity: .8;
+}
+
+.mission-reward {
+  color: var(--gold);
+
+  font-size: 10px;
+}
+
+
+/* =====================================================
+   QUEST BUTTON
+===================================================== */
+
+.quest-button {
+  display: block;
+
+  margin-top: 15px;
+
+  padding: 13px;
+
+  background: var(--sand);
+
+  border: 4px solid var(--black);
+
+  color: var(--black);
+
+  text-align: center;
+
+  font-size: 10px;
+  font-weight: 1000;
+
+  box-shadow:
+    4px 5px 0 var(--black);
+
+  transition: .15s;
+}
+
+.quest-button:hover {
+  transform: translate(2px, 2px);
+
+  box-shadow:
+    2px 3px 0 var(--black);
+}
+
+
+/* =====================================================
+   DAILY RUN
+===================================================== */
+
+.daily-run {
+  position: absolute;
+
+  left: 50%;
+  bottom: 62px;
+
+  transform: translateX(-50%);
+
+  min-width: 500px;
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  gap: 18px;
+
+  padding: 17px 28px;
+
+  background: var(--gold);
+
+  border: 5px solid var(--black);
+
+  color: var(--forest);
+
+  box-shadow:
+    7px 8px 0 var(--black);
+
+  z-index: 50;
+
+  transition: .15s;
+}
+
+.daily-run:hover {
+  transform:
+    translateX(-50%)
+    translateY(3px);
+
+  box-shadow:
+    4px 5px 0 var(--black);
+}
+
+.play-icon {
+  font-size: 20px;
+}
+
+.daily-run strong {
+  font-size: 18px;
+  font-weight: 1000;
+}
+
+.daily-run b {
+  font-size: 12px;
+}
+
+
+/* =====================================================
+   QUOTE
+===================================================== */
+
+.quote {
+  position: absolute;
+
+  left: 50%;
+  bottom: 17px;
+
+  transform: translateX(-50%);
+
+  color: var(--cream);
+
+  font-size: 10px;
+  font-weight: 900;
+
+  letter-spacing: 4px;
+
+  z-index: 30;
+}
+
+
+/* =====================================================
+   BOTTOM NAV
+===================================================== */
+
+.bottom-nav {
+  height: 68px;
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  gap: 85px;
+
+  background: var(--forest);
+
+  border-top: 5px solid var(--black);
+
+  position: relative;
+  z-index: 100;
+}
+
+.nav-item {
+  display: flex;
+  flex-direction: column;
+
+  align-items: center;
+
+  gap: 4px;
+
+  color: var(--sand);
+
+  font-weight: 1000;
+
+  transition: .2s;
+}
+
+.nav-item span {
+  font-size: 19px;
+}
+
+.nav-item small {
+  font-size: 8px;
+}
+
+.nav-item:hover,
+.nav-item.active {
+  color: var(--gold);
+}
+
+
+/* =====================================================
+   RESPONSIVE
+===================================================== */
+
+@media (max-width: 1250px) {
+
+  .top-nav {
+    margin-left: 35px;
+    gap: 18px;
+  }
+
+  .left-hud {
+    left: 20px;
+    width: 260px;
+  }
+
+  .right-hud {
+    right: 20px;
+    width: 270px;
+  }
+
+  .hero-area {
+    transform:
+      translate(-50%, -50%)
+      scale(.85);
+  }
+
+  .currency {
+    display: none;
+  }
+
+}
+
+
+@media (max-width: 950px) {
+
+  .top-nav {
+    display: none;
+  }
+
+  .player-hud {
+    margin-left: auto;
+  }
+
+  .left-hud,
+  .right-hud {
+    display: none;
+  }
+
+  .hero-area {
+    transform:
+      translate(-50%, -50%)
+      scale(.85);
+  }
+
+  .daily-run {
+    min-width: 420px;
+  }
+
+  .bottom-nav {
+    gap: 45px;
+  }
+
+}
+
+
+@media (max-width: 600px) {
+
+  .topbar {
+    padding: 0 15px;
+  }
+
+  .logo {
+    font-size: 24px;
+  }
+
+  .player-hud {
+    display: none;
+  }
+
+  .hero-area {
+    transform:
+      translate(-50%, -50%)
+      scale(.65);
+  }
+
+  .daily-run {
+    min-width: 90%;
+
+    padding: 14px;
+  }
+
+  .daily-run strong {
+    font-size: 14px;
+  }
+
+  .daily-run b {
+    display: none;
+  }
+
+  .bottom-nav {
+    gap: 20px;
+  }
+
+}

@@ -1,0 +1,225 @@
+/* ================================
+   ASCEND SIGNUP
+================================ */
+
+.signup-page {
+  min-height: 100vh;
+  width: 100%;
+  background:
+    radial-gradient(circle at 50% 20%, rgba(244, 177, 59, 0.12), transparent 30%),
+    linear-gradient(135deg, #082B29 0%, #0F3D3A 55%, #123F38 100%);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 40px 20px;
+  box-sizing: border-box;
+  font-family: Arial, Helvetica, sans-serif;
+  color: #FFF8EC;
+  position: relative;
+  overflow: hidden;
+}
+
+/* Decorative background circles */
+
+.signup-page::before,
+.signup-page::after {
+  content: "";
+  position: absolute;
+  border-radius: 50%;
+  border: 2px solid rgba(244, 177, 59, 0.12);
+  pointer-events: none;
+}
+
+.signup-page::before {
+  width: 500px;
+  height: 500px;
+  top: -250px;
+  right: -180px;
+}
+
+.signup-page::after {
+  width: 350px;
+  height: 350px;
+  bottom: -180px;
+  left: -120px;
+}
+
+/* ================================
+   CARD
+================================ */
+
+.signup-card {
+  width: min(460px, 100%);
+  background: #FFF8EC;
+  color: #101515;
+  border: 4px solid #101515;
+  border-radius: 18px;
+  padding: 42px;
+  position: relative;
+  z-index: 2;
+  box-sizing: border-box;
+  box-shadow: 12px 12px 0 #101515;
+}
+
+/* Top game label */
+
+
+/* ================================
+   HEADING
+================================ */
+
+.signup-card h1 {
+  margin: 0 0 10px;
+  font-size: clamp(28px, 5vw, 40px);
+  line-height: 0.95;
+  font-weight: 1000;
+  letter-spacing: -1px;
+  text-transform: uppercase;
+}
+
+.signup-card > p {
+  margin: 0 0 30px;
+  color: #42615D;
+  font-size: 15px;
+  font-weight: 600;
+}
+
+/* ================================
+   FORM
+================================ */
+
+.signup-card form {
+  display: flex;
+  flex-direction: column;
+  gap: 15px;
+}
+
+.signup-card input {
+  width: 100%;
+  height: 54px;
+  box-sizing: border-box;
+  border: 3px solid #101515;
+  border-radius: 8px;
+  background: #F2E6D6;
+  color: #101515;
+  padding: 0 16px;
+  font-size: 14px;
+  font-weight: 800;
+  outline: none;
+  transition: 0.15s ease;
+}
+
+.signup-card input::placeholder {
+  color: #59716D;
+  font-weight: 900;
+  letter-spacing: 1px;
+}
+
+.signup-card input:focus {
+  background: #FFFFFF;
+  border-color: #E0745E;
+  box-shadow: 5px 5px 0 #E0745E;
+  transform: translate(-2px, -2px);
+}
+
+/* ================================
+   ERROR
+================================ */
+
+.signup-error {
+  background: #E0745E;
+  color: #101515;
+  border: 3px solid #101515;
+  border-radius: 7px;
+  padding: 11px 13px;
+  font-size: 13px;
+  font-weight: 900;
+}
+
+/* ================================
+   CREATE BUTTON
+================================ */
+
+.signup-card form button[type="submit"] {
+  height: 58px;
+  margin-top: 8px;
+  border: 3px solid #101515;
+  border-radius: 8px;
+  background: #E0745E;
+  color: #101515;
+  font-size: 15px;
+  font-weight: 1000;
+  letter-spacing: 1px;
+  cursor: pointer;
+  box-shadow: 6px 6px 0 #101515;
+  transition: 0.12s ease;
+}
+
+.signup-card form button[type="submit"]:hover {
+  background: #F4B13B;
+  transform: translate(-2px, -2px);
+  box-shadow: 8px 8px 0 #101515;
+}
+
+.signup-card form button[type="submit"]:active {
+  transform: translate(4px, 4px);
+  box-shadow: 2px 2px 0 #101515;
+}
+
+.signup-card form button[type="submit"]:disabled {
+  opacity: 0.65;
+  cursor: not-allowed;
+  transform: none;
+}
+
+/* ================================
+   LOGIN LINK
+================================ */
+
+.login-link {
+  display: block;
+  width: 100%;
+  margin-top: 25px;
+  padding: 12px;
+  border: none;
+  background: transparent;
+  color: #0F3D3A;
+  font-size: 13px;
+  font-weight: 900;
+  cursor: pointer;
+  text-decoration: underline;
+  text-underline-offset: 4px;
+}
+
+.login-link:hover {
+  color: #E0745E;
+}
+
+/* ================================
+   MOBILE
+================================ */
+
+@media (max-width: 600px) {
+  .signup-page {
+    padding: 25px 15px;
+  }
+
+  .signup-card {
+    padding: 28px 22px;
+    box-shadow: 7px 7px 0 #101515;
+  }
+
+  .signup-card h1 {
+    font-size: 30px;
+  }
+}
+.signup-label {
+  display: inline-block;
+  background: #F4B13B;
+  border: 2px solid #101515;
+  padding: 7px 12px;
+  font-size: 11px;
+  font-weight: 900;
+  letter-spacing: 1.5px;
+  margin-bottom: 22px;
+}

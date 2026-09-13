@@ -1,0 +1,1018 @@
+/* =========================================
+   ASCEND RANKED
+========================================= */
+
+.game-page {
+  min-height: 100vh;
+
+  background:
+    radial-gradient(
+      circle at 80% 15%,
+      rgba(244, 177, 59, 0.12),
+      transparent 28%
+    ),
+    radial-gradient(
+      circle at 10% 80%,
+      rgba(224, 116, 94, 0.08),
+      transparent 25%
+    ),
+    linear-gradient(
+      135deg,
+      #fff8ec,
+      #f2e6d6
+    );
+
+  color: #101515;
+
+  font-family:
+    Arial,
+    Helvetica,
+    sans-serif;
+
+  overflow-x: hidden;
+}
+
+/* =========================================
+   NAV
+========================================= */
+
+.game-nav {
+  height: 72px;
+
+  padding: 0 5%;
+
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+
+  background: #082b29;
+
+  border-bottom: 3px solid #101515;
+
+  box-sizing: border-box;
+}
+
+.logo {
+  color: #fff8ec;
+
+  text-decoration: none;
+
+  font-size: 24px;
+  font-weight: 1000;
+  letter-spacing: 2px;
+}
+
+.logo span {
+  color: #f4b13b;
+
+  display: inline-block;
+
+  animation: starSpin 5s linear infinite;
+}
+
+@keyframes starSpin {
+  0% {
+    transform: rotate(0deg);
+  }
+
+  100% {
+    transform: rotate(360deg);
+  }
+}
+
+.game-nav-links {
+  display: flex;
+  align-items: center;
+
+  gap: 5px;
+}
+
+.game-nav-links a {
+  padding: 10px 14px;
+
+  color: #b9cbc7;
+
+  text-decoration: none;
+
+  font-size: 10px;
+  font-weight: 1000;
+
+  letter-spacing: 1px;
+
+  transition: 0.2s ease;
+}
+
+.game-nav-links a:hover {
+  color: #f4b13b;
+
+  transform: translateY(-2px);
+}
+
+.game-nav-links a.active {
+  background: #f4b13b;
+
+  color: #101515;
+
+  border: 2px solid #101515;
+
+  box-shadow: 3px 3px 0 #101515;
+}
+
+.player-mini {
+  display: flex;
+  align-items: center;
+
+  gap: 10px;
+
+  color: #fff8ec;
+}
+
+.player-avatar {
+  width: 38px;
+  height: 38px;
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  border: 2px solid #f4b13b;
+
+  border-radius: 50%;
+
+  background: #0f3d3a;
+
+  font-size: 20px;
+
+  animation: avatarPulse 3s ease-in-out infinite;
+}
+
+@keyframes avatarPulse {
+  0%,
+  100% {
+    box-shadow: 0 0 0 rgba(244, 177, 59, 0);
+  }
+
+  50% {
+    box-shadow: 0 0 18px rgba(244, 177, 59, 0.35);
+  }
+}
+
+.player-mini strong {
+  display: block;
+
+  font-size: 11px;
+  font-weight: 1000;
+}
+
+.player-mini small {
+  display: block;
+
+  margin-top: 3px;
+
+  color: #aabbb7;
+
+  font-size: 9px;
+}
+
+/* =========================================
+   CONTENT
+========================================= */
+
+.game-content {
+  max-width: 1100px;
+
+  margin: 0 auto;
+
+  padding: 55px 5% 80px;
+
+  animation: pageEnter 0.6s ease-out;
+}
+
+@keyframes pageEnter {
+  from {
+    opacity: 0;
+
+    transform: translateY(18px);
+  }
+
+  to {
+    opacity: 1;
+
+    transform: translateY(0);
+  }
+}
+
+/* =========================================
+   HEADING
+========================================= */
+
+.page-heading {
+  margin-bottom: 35px;
+}
+
+.page-heading p {
+  margin: 0 0 8px;
+
+  color: #e0745e;
+
+  font-size: 11px;
+
+  font-weight: 1000;
+
+  letter-spacing: 2px;
+
+  animation: fadeSlide 0.7s ease;
+}
+
+.page-heading h1 {
+  margin: 0;
+
+  color: #0f3d3a;
+
+  font-size: clamp(55px, 8vw, 90px);
+
+  line-height: 0.85;
+
+  font-weight: 1000;
+
+  letter-spacing: -5px;
+
+  animation: titleIn 0.8s cubic-bezier(.16,1,.3,1);
+}
+
+@keyframes titleIn {
+  from {
+    opacity: 0;
+
+    transform: translateX(-30px);
+
+    letter-spacing: 5px;
+  }
+
+  to {
+    opacity: 1;
+
+    transform: translateX(0);
+
+    letter-spacing: -5px;
+  }
+}
+
+@keyframes fadeSlide {
+  from {
+    opacity: 0;
+
+    transform: translateY(10px);
+  }
+
+  to {
+    opacity: 1;
+
+    transform: translateY(0);
+  }
+}
+
+/* =========================================
+   MAIN RANK PANEL
+========================================= */
+
+.game-panel {
+  background: #0f3d3a;
+
+  border: 4px solid #101515;
+
+  box-shadow: 9px 9px 0 #101515;
+}
+
+.rank-panel {
+  position: relative;
+
+  min-height: 390px;
+
+  padding: 45px 25px;
+
+  margin-bottom: 40px;
+
+  overflow: hidden;
+
+  display: flex;
+
+  align-items: center;
+
+  justify-content: center;
+
+  animation: panelIn 0.8s cubic-bezier(.16,1,.3,1);
+}
+
+@keyframes panelIn {
+  from {
+    opacity: 0;
+
+    transform:
+      translateY(25px)
+      scale(0.98);
+  }
+
+  to {
+    opacity: 1;
+
+    transform:
+      translateY(0)
+      scale(1);
+  }
+}
+
+/* background circles */
+
+.rank-panel::before {
+  content: "";
+
+  position: absolute;
+
+  width: 500px;
+  height: 500px;
+
+  border-radius: 50%;
+
+  border: 1px solid rgba(244, 177, 59, 0.12);
+
+  top: -250px;
+  right: -80px;
+
+  animation: orbit 12s linear infinite;
+}
+
+.rank-panel::after {
+  content: "";
+
+  position: absolute;
+
+  width: 330px;
+  height: 330px;
+
+  border-radius: 50%;
+
+  border: 1px solid rgba(244, 177, 59, 0.08);
+
+  bottom: -230px;
+  left: -80px;
+
+  animation: orbitReverse 15s linear infinite;
+}
+
+@keyframes orbit {
+  from {
+    transform: rotate(0deg);
+  }
+
+  to {
+    transform: rotate(360deg);
+  }
+}
+
+@keyframes orbitReverse {
+  from {
+    transform: rotate(360deg);
+  }
+
+  to {
+    transform: rotate(0deg);
+  }
+}
+
+/* =========================================
+   FLOATING PARTICLES
+========================================= */
+
+.big-rank::before,
+.big-rank::after {
+  content: "✦";
+
+  position: absolute;
+
+  color: #f4b13b;
+
+  font-size: 18px;
+
+  opacity: 0.7;
+
+  animation: floatParticle 3s ease-in-out infinite;
+}
+
+.big-rank::before {
+  top: 70px;
+  left: 22%;
+}
+
+.big-rank::after {
+  right: 20%;
+  bottom: 70px;
+
+  animation-delay: 1.2s;
+}
+
+@keyframes floatParticle {
+  0%,
+  100% {
+    transform:
+      translateY(0)
+      rotate(0deg);
+
+    opacity: 0.35;
+  }
+
+  50% {
+    transform:
+      translateY(-15px)
+      rotate(90deg);
+
+    opacity: 1;
+  }
+}
+
+/* =========================================
+   BIG RANK
+========================================= */
+
+.big-rank {
+  position: relative;
+
+  z-index: 3;
+
+  width: 100%;
+
+  text-align: center;
+}
+
+/* =========================================
+   RANK BADGE
+========================================= */
+
+.rank-badge {
+  position: relative;
+
+  width: 145px;
+  height: 145px;
+
+  margin: 0 auto 20px;
+
+  display: flex;
+
+  align-items: center;
+
+  justify-content: center;
+
+  background:
+    radial-gradient(
+      circle,
+      rgba(244, 177, 59, 0.3),
+      transparent 65%
+    );
+
+  border: 4px solid #f4b13b;
+
+  box-shadow:
+    0 0 0 7px #082b29,
+    0 0 0 10px #101515,
+    0 0 35px rgba(244, 177, 59, 0.2);
+
+  border-radius: 50%;
+
+  animation:
+    badgeFloat 3s ease-in-out infinite,
+    badgeGlow 2.5s ease-in-out infinite;
+}
+
+@keyframes badgeFloat {
+  0%,
+  100% {
+    transform: translateY(0);
+  }
+
+  50% {
+    transform: translateY(-8px);
+  }
+}
+
+@keyframes badgeGlow {
+  0%,
+  100% {
+    filter: brightness(1);
+  }
+
+  50% {
+    filter: brightness(1.18);
+  }
+}
+
+/* =========================================
+   RANK TEXT
+========================================= */
+
+.big-rank h2 {
+  margin: 18px 0 4px;
+
+  color: #f4b13b;
+
+  font-size: clamp(35px, 5vw, 55px);
+
+  font-weight: 1000;
+
+  letter-spacing: 3px;
+
+  text-shadow:
+    3px 3px 0 #082b29;
+
+  animation: rankReveal 0.9s ease;
+}
+
+@keyframes rankReveal {
+  from {
+    opacity: 0;
+
+    transform: scale(0.8);
+  }
+
+  to {
+    opacity: 1;
+
+    transform: scale(1);
+  }
+}
+
+.rp {
+  color: #fff8ec;
+
+  font-size: 24px;
+
+  font-weight: 1000;
+
+  letter-spacing: 1px;
+}
+
+/* =========================================
+   PROGRESS
+========================================= */
+
+.progress {
+  height: 20px;
+
+  overflow: hidden;
+
+  background: #082b29;
+
+  border: 3px solid #101515;
+
+  box-shadow:
+    inset 0 2px 5px rgba(0, 0, 0, 0.3);
+}
+
+.progress > div {
+  position: relative;
+
+  height: 100%;
+
+  background: linear-gradient(
+    90deg,
+    #e0745e,
+    #f4b13b,
+    #ffd66b
+  );
+
+  animation: progressLoad 1.4s cubic-bezier(.16,1,.3,1);
+
+  overflow: hidden;
+}
+
+.progress > div::after {
+  content: "";
+
+  position: absolute;
+
+  top: 0;
+  left: -80px;
+
+  width: 70px;
+  height: 100%;
+
+  background: rgba(255, 255, 255, 0.45);
+
+  transform: skewX(-20deg);
+
+  animation: progressShine 2.5s infinite;
+}
+
+@keyframes progressLoad {
+  from {
+    width: 0 !important;
+  }
+}
+
+@keyframes progressShine {
+  0% {
+    left: -80px;
+  }
+
+  60%,
+  100% {
+    left: 110%;
+  }
+}
+
+.rank-distance {
+  margin-top: 10px;
+
+  color: #b9cbc7;
+
+  font-size: 10px;
+
+  font-weight: 1000;
+
+  letter-spacing: 1.5px;
+}
+
+/* =========================================
+   RANK ROAD
+========================================= */
+
+.rank-road {
+  display: grid;
+
+  grid-template-columns: repeat(7, 1fr);
+
+  gap: 10px;
+
+  margin-bottom: 40px;
+
+  animation: roadIn 1s ease;
+}
+
+@keyframes roadIn {
+  from {
+    opacity: 0;
+
+    transform: translateY(20px);
+  }
+
+  to {
+    opacity: 1;
+
+    transform: translateY(0);
+  }
+}
+
+.rank-node {
+  position: relative;
+
+  min-height: 145px;
+
+  padding: 14px 8px;
+
+  display: flex;
+
+  flex-direction: column;
+
+  align-items: center;
+
+  justify-content: center;
+
+  text-align: center;
+
+  background: rgba(255, 255, 255, 0.55);
+
+  border: 2px solid #aaa195;
+
+  opacity: 0.45;
+
+  transition:
+    transform 0.25s ease,
+    box-shadow 0.25s ease,
+    opacity 0.25s ease;
+}
+
+.rank-node.unlocked {
+  opacity: 1;
+
+  border-color: #0f3d3a;
+}
+
+.rank-node:hover {
+  transform: translateY(-6px);
+
+  box-shadow: 4px 4px 0 #101515;
+
+  opacity: 1;
+}
+
+.rank-node.current {
+  background: #f4b13b;
+
+  border: 3px solid #101515;
+
+  box-shadow: 5px 5px 0 #101515;
+
+  opacity: 1;
+
+  transform: translateY(-8px);
+}
+
+.rank-node.current:hover {
+  transform: translateY(-12px);
+}
+
+/* =========================================
+   MEDALS
+========================================= */
+
+.mini-badge {
+  width: 78px;
+  height: 78px;
+
+  margin: 0 auto 7px;
+
+  display: flex;
+
+  align-items: center;
+
+  justify-content: center;
+
+  background: transparent;
+
+  border: none;
+}
+
+.mini-badge img {
+  width: 100%;
+  height: 100%;
+
+  object-fit: contain;
+
+  display: block;
+
+  filter: drop-shadow(
+    2px 4px 3px rgba(0, 0, 0, 0.2)
+  );
+
+  transition:
+    transform 0.25s ease,
+    filter 0.25s ease;
+}
+
+.rank-node:hover .mini-badge img {
+  transform:
+    translateY(-5px)
+    scale(1.08);
+
+  filter:
+    drop-shadow(
+      2px 7px 4px rgba(0, 0, 0, 0.25)
+    );
+}
+
+.rank-node.current .mini-badge img {
+  transform: scale(1.12);
+
+  filter:
+    drop-shadow(
+      0 5px 7px rgba(0, 0, 0, 0.25)
+    );
+}
+
+.rank-node strong {
+  display: block;
+
+  color: #0f3d3a;
+
+  font-size: 11px;
+
+  font-weight: 1000;
+
+  letter-spacing: 0.7px;
+}
+
+/* =========================================
+   SEASON CARD
+========================================= */
+
+.season-card {
+  padding: 32px;
+
+  margin-bottom: 30px;
+
+  background: #fff8ec;
+
+  border: 3px solid #101515;
+
+  box-shadow: 7px 7px 0 #101515;
+
+  animation: cardRise 0.8s ease;
+}
+
+@keyframes cardRise {
+  from {
+    opacity: 0;
+
+    transform: translateY(20px);
+  }
+
+  to {
+    opacity: 1;
+
+    transform: translateY(0);
+  }
+}
+
+.season-card > p:first-child {
+  margin: 0 0 6px;
+
+  color: #e0745e;
+
+  font-size: 10px;
+
+  font-weight: 1000;
+
+  letter-spacing: 2px;
+}
+
+.season-card h2 {
+  margin: 0 0 12px;
+
+  color: #0f3d3a;
+
+  font-size: 34px;
+
+  font-weight: 1000;
+
+  letter-spacing: 1px;
+}
+
+.season-card > p {
+  max-width: 650px;
+
+  font-size: 13px;
+
+  line-height: 1.5;
+
+  font-weight: 600;
+}
+
+/* =========================================
+   REWARDS
+========================================= */
+
+.reward-list {
+  display: grid;
+
+  grid-template-columns: repeat(3, 1fr);
+
+  gap: 15px;
+
+  margin-top: 25px;
+}
+
+.reward-card {
+  padding: 20px;
+
+  text-align: center;
+
+  background: #f2e6d6;
+
+  border: 2px solid #101515;
+
+  transition:
+    transform 0.25s ease,
+    box-shadow 0.25s ease;
+}
+
+.reward-card:hover {
+  transform: translateY(-7px);
+
+  box-shadow: 5px 5px 0 #101515;
+}
+
+.reward-image {
+  width: 100px;
+  height: 80px;
+
+  margin: 0 auto 10px;
+
+  display: flex;
+
+  align-items: center;
+
+  justify-content: center;
+
+  background: transparent;
+
+  border: none;
+}
+
+.reward-image img {
+  width: 100%;
+  height: 100%;
+
+  object-fit: contain;
+
+  transition: transform 0.25s ease;
+}
+
+.reward-card:hover .reward-image img {
+  transform:
+    scale(1.1)
+    rotate(-2deg);
+}
+
+.reward-card h3 {
+  margin: 0 0 5px;
+
+  color: #0f3d3a;
+
+  font-size: 13px;
+
+  font-weight: 1000;
+}
+
+.reward-card p {
+  margin: 0;
+
+  color: #e0745e;
+
+  font-size: 10px;
+
+  font-weight: 1000;
+
+  letter-spacing: 0.5px;
+}
+
+/* =========================================
+   RESPONSIVE
+========================================= */
+
+@media (max-width: 1000px) {
+  .rank-road {
+    grid-template-columns: repeat(4, 1fr);
+  }
+}
+
+@media (max-width: 850px) {
+  .game-nav {
+    padding: 0 3%;
+  }
+
+  .game-nav-links {
+    display: none;
+  }
+
+  .game-content {
+    padding: 35px 4% 60px;
+  }
+
+  .rank-panel {
+    min-height: 360px;
+  }
+
+  .reward-list {
+    grid-template-columns: 1fr;
+  }
+}
+
+@media (max-width: 650px) {
+  .rank-road {
+    grid-template-columns: repeat(2, 1fr);
+  }
+
+  .rank-node.current {
+    transform: none;
+  }
+
+  .rank-node.current:hover {
+    transform: translateY(-5px);
+  }
+}
+
+@media (max-width: 500px) {
+  .game-nav {
+    height: 62px;
+  }
+
+  .logo {
+    font-size: 19px;
+  }
+
+  .rank-panel {
+    padding: 35px 15px;
+  }
+
+  .rank-badge {
+    width: 115px;
+    height: 115px;
+  }
+
+  .big-rank h2 {
+    font-size: 32px;
+  }
+
+  .season-card {
+    padding: 22px;
+  }
+}
