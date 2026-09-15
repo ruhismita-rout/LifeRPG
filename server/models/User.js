@@ -61,6 +61,11 @@ const userSchema = new mongoose.Schema(
       type: String,
       default: "flame",
     },
+
+    achievements: {
+      type: [String],
+      default: [],
+    },
   },
 
   {
