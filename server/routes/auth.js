@@ -191,5 +191,73 @@ router.put("/character", async (req, res) => {
   }
 });
 
+/* ---------------- GET USER PROFILE ---------------- */
+
+router.get("/user/:userId", async (req, res) => {
+  try {
+    const user = await User.findById(req.params.userId).select(
+      "username level xp gold rp rank streak character achievements"
+    );
+
+    if (!user) {
+      return res.status(404).json({
+        message: "User not found",
+      });
+    }
+
+    res.json({
+      id: user._id,
+      username: user.username,
+      level: user.level,
+      xp: user.xp,
+      gold: user.gold,
+      rp: user.rp,
+      rank: user.rank,
+      streak: user.streak,
+      character: user.character,
+      achievements: user.achievements || [],
+    });
+  } catch (error) {
+    console.error(error);
+
+    res.status(500).json({
+      message: "Could not load user",
+    });
+  }
+});
+/* ---------------- GET USER PROFILE ---------------- */
+
+router.get("/user/:userId", async (req, res) => {
+  try {
+    const user = await User.findById(req.params.userId).select(
+      "username level xp gold rp rank streak character achievements"
+    );
+
+    if (!user) {
+      return res.status(404).json({
+        message: "User not found",
+      });
+    }
+
+    res.json({
+      id: user._id,
+      username: user.username,
+      level: user.level,
+      xp: user.xp,
+      gold: user.gold,
+      rp: user.rp,
+      rank: user.rank,
+      streak: user.streak,
+      character: user.character,
+      achievements: user.achievements || [],
+    });
+  } catch (error) {
+    console.error(error);
+
+    res.status(500).json({
+      message: "Could not load user",
+    });
+  }
+});
 
 export default router;

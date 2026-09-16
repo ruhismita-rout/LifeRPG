@@ -62,6 +62,8 @@ const userSchema = new mongoose.Schema(
       default: "flame",
     },
 
+    /* ---------------- ACHIEVEMENTS ---------------- */
+
     achievements: {
       type: [String],
       default: [],

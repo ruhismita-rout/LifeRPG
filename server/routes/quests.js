@@ -289,6 +289,8 @@ router.get("/", async (req, res) => {
 
 router.post("/", async (req, res) => {
   try {
+    console.log("CREATE QUEST BODY:", req.body);
+
     const {
       title,
       description,
@@ -307,23 +309,28 @@ router.post("/", async (req, res) => {
 
     const quest = await Quest.create({
       title,
-      description,
-      category,
-      type,
-      difficulty,
-      xp,
-      gold,
+      description: description || "",
+      category: category || "GENERAL",
+      type: type || "DAILY",
+      difficulty: Number(difficulty) || 1,
+      xp: Number(xp) || 20,
+      gold: Number(gold) || 10,
     });
+
+    console.log("QUEST CREATED:", quest._id);
 
     res.status(201).json(quest);
   } catch (error) {
-    console.error(error);
+    console.error("CREATE QUEST ERROR:", error);
 
     res.status(500).json({
-      message: "Could not create quest",
+      message: error.message || "Could not create quest",
+      error: error.name || "UnknownError",
     });
   }
 });
+
+
 
 /* ---------------- DELETE QUEST ---------------- */
 
@@ -689,10 +696,10 @@ router.post(
         },
       });
     } catch (error) {
-      console.error(error);
+      console.error("COMPLETE QUEST ERROR:", error);
 
       res.status(500).json({
-        message: "Could not update quest",
+        message: error.message || "Could not update quest",
       });
     }
   }

@@ -19,6 +19,9 @@ function Quests() {
   const [actionLoading, setActionLoading] = useState(null);
   const [error, setError] = useState("");
 
+  // Achievement popup
+  const [achievementPopup, setAchievementPopup] = useState(null);
+
   const [newQuest, setNewQuest] = useState({
     title: "",
     description: "",
@@ -98,7 +101,10 @@ function Quests() {
       setActionLoading(quest._id);
       setError("");
 
-      const data = await completeQuest(quest._id, user.id);
+      const data = await completeQuest(
+        quest._id,
+        user.id
+      );
 
       /*
         Backend returns the updated user.
@@ -106,11 +112,32 @@ function Quests() {
       */
       if (data.user) {
         setUser(data.user);
-        localStorage.setItem("user", JSON.stringify(data.user));
+
+        localStorage.setItem(
+          "user",
+          JSON.stringify(data.user)
+        );
+      }
+
+      /*
+        Show achievement popup when a NEW
+        achievement is unlocked.
+      */
+      if (
+        !data.undone &&
+        data.achievements &&
+        data.achievements.length > 0
+      ) {
+        setAchievementPopup(
+          data.achievements[0]
+        );
+
+        setTimeout(() => {
+          setAchievementPopup(null);
+        }, 4000);
       }
 
       await loadQuests();
-
     } catch (err) {
       setError(err.message);
     } finally {
@@ -171,7 +198,9 @@ function Quests() {
       await deleteQuest(questId);
 
       setQuests((current) =>
-        current.filter((quest) => quest._id !== questId)
+        current.filter(
+          (quest) => quest._id !== questId
+        )
       );
     } catch (err) {
       setError(err.message);
@@ -183,7 +212,9 @@ function Quests() {
   const filteredQuests =
     filter === "ALL"
       ? quests
-      : quests.filter((quest) => quest.type === filter);
+      : quests.filter(
+          (quest) => quest.type === filter
+        );
 
   const completedCount = quests.filter((quest) =>
     isQuestCompleted(quest)
@@ -196,7 +227,9 @@ function Quests() {
       <div className="quests-page">
         <div className="quests-loading">
           <div className="loading-icon">⚔️</div>
+
           <h2>LOADING QUESTS</h2>
+
           <p>Preparing your missions...</p>
         </div>
       </div>
@@ -208,17 +241,69 @@ function Quests() {
   return (
     <div className="quests-page">
 
-      {/* HEADER */}
+      {/* ================================
+          ACHIEVEMENT POPUP
+      ================================= */}
+
+      {achievementPopup && (
+        <div className="achievement-popup">
+
+          <div className="achievement-popup-icon">
+            🏆
+          </div>
+
+          <div className="achievement-popup-content">
+
+            <span>
+              ACHIEVEMENT UNLOCKED
+            </span>
+
+            <h2>
+              {achievementPopup.name}
+            </h2>
+
+            <p>
+              You earned a new achievement!
+            </p>
+
+            <strong>
+              🪙 +{achievementPopup.reward} GOLD
+            </strong>
+
+          </div>
+
+          <button
+            className="achievement-popup-close"
+            onClick={() =>
+              setAchievementPopup(null)
+            }
+            aria-label="Close achievement notification"
+          >
+            ×
+          </button>
+
+        </div>
+      )}
+
+      {/* ================================
+          HEADER
+      ================================= */}
 
       <header className="quests-header">
+
         <div>
-         <p className="eyebrow">DONEZO // MISSIONS</p>
+
+          <p className="eyebrow">
+            DONEZO // MISSIONS
+          </p>
 
           <h1>QUEST BOARD</h1>
 
           <p className="quests-subtitle">
-            Complete missions. Earn rewards. Rise through the ranks.
+            Complete missions. Earn rewards.
+            Rise through the ranks.
           </p>
+
         </div>
 
         <button
@@ -227,9 +312,12 @@ function Quests() {
         >
           + CREATE QUEST
         </button>
+
       </header>
 
-      {/* ERROR */}
+      {/* ================================
+          ERROR
+      ================================= */}
 
       {error && (
         <div className="quest-error">
@@ -237,80 +325,130 @@ function Quests() {
         </div>
       )}
 
-      {/* STATS */}
+      {/* ================================
+          STATS
+      ================================= */}
 
       <section className="quest-stats">
 
         <div className="quest-stat">
-          <span className="stat-label">TOTAL QUESTS</span>
-          <strong>{quests.length}</strong>
+          <span className="stat-label">
+            TOTAL QUESTS
+          </span>
+
+          <strong>
+            {quests.length}
+          </strong>
         </div>
 
         <div className="quest-stat">
-          <span className="stat-label">COMPLETED</span>
-          <strong>{completedCount}</strong>
+          <span className="stat-label">
+            COMPLETED
+          </span>
+
+          <strong>
+            {completedCount}
+          </strong>
         </div>
 
         <div className="quest-stat">
-          <span className="stat-label">STREAK</span>
-          <strong>{user?.streak || 0} 🔥</strong>
+          <span className="stat-label">
+            STREAK
+          </span>
+
+          <strong>
+            {user?.streak || 0} 🔥
+          </strong>
         </div>
 
         <div className="quest-stat">
-          <span className="stat-label">RANK</span>
-          <strong>{user?.rank || "BRONZE"}</strong>
+          <span className="stat-label">
+            RANK
+          </span>
+
+          <strong>
+            {user?.rank || "BRONZE"}
+          </strong>
         </div>
 
       </section>
 
-      {/* FILTERS */}
+      {/* ================================
+          FILTERS
+      ================================= */}
 
       <div className="quest-filters">
 
-        {["ALL", "DAILY", "EPIC", "SIDE"].map((type) => (
-          <button
-            key={type}
-            className={`filter-btn ${
-              filter === type ? "active" : ""
-            }`}
-            onClick={() => setFilter(type)}
-          >
-            {type}
-          </button>
-        ))}
+        {["ALL", "DAILY", "EPIC", "SIDE"].map(
+          (type) => (
+            <button
+              key={type}
+              className={`filter-btn ${
+                filter === type
+                  ? "active"
+                  : ""
+              }`}
+              onClick={() =>
+                setFilter(type)
+              }
+            >
+              {type}
+            </button>
+          )
+        )}
 
       </div>
 
-      {/* QUEST LIST */}
+      {/* ================================
+          QUEST LIST
+      ================================= */}
 
       <main className="quest-list">
 
         {filteredQuests.length === 0 ? (
-          <div className="empty-quests">
-            <div className="empty-icon">📜</div>
 
-            <h2>NO QUESTS FOUND</h2>
+          <div className="empty-quests">
+
+            <div className="empty-icon">
+              📜
+            </div>
+
+            <h2>
+              NO QUESTS FOUND
+            </h2>
 
             <p>
-              The board is empty. Create a mission and begin your run.
+              The board is empty. Create a
+              mission and begin your run.
             </p>
 
             <button
               className="create-quest-btn"
-              onClick={() => setShowModal(true)}
+              onClick={() =>
+                setShowModal(true)
+              }
             >
               + CREATE QUEST
             </button>
+
           </div>
+
         ) : (
+
           filteredQuests.map((quest) => {
-            const completed = isQuestCompleted(quest);
-            const busy = actionLoading === quest._id;
+
+            const completed =
+              isQuestCompleted(quest);
+
+            const busy =
+              actionLoading === quest._id;
 
             return (
               <article
                 className={`quest-card ${
-                  completed ? "completed" : ""
+                  completed
+                    ? "completed"
+                    : ""
                 }`}
                 key={quest._id}
               >
@@ -324,8 +462,13 @@ function Quests() {
                   </div>
 
                   <div className="quest-difficulty">
-                    {"★".repeat(quest.difficulty)}
-                    {"☆".repeat(5 - quest.difficulty)}
+                    {"★".repeat(
+                      quest.difficulty
+                    )}
+
+                    {"☆".repeat(
+                      5 - quest.difficulty
+                    )}
                   </div>
 
                 </div>
@@ -333,14 +476,18 @@ function Quests() {
                 {/* TITLE */}
 
                 <h2 className="quest-title">
+
                   {completed && "✓ "}
+
                   {quest.title}
+
                 </h2>
 
                 {/* DESCRIPTION */}
 
                 <p className="quest-description">
-                  {quest.description || "Complete this mission."}
+                  {quest.description ||
+                    "Complete this mission."}
                 </p>
 
                 {/* CATEGORY */}
@@ -355,18 +502,27 @@ function Quests() {
 
                   <div className="reward xp">
                     <span>XP</span>
-                    <strong>+{quest.xp}</strong>
+
+                    <strong>
+                      +{quest.xp}
+                    </strong>
                   </div>
 
                   <div className="reward gold">
                     <span>GOLD</span>
-                    <strong>+{quest.gold}</strong>
+
+                    <strong>
+                      +{quest.gold}
+                    </strong>
                   </div>
 
                   <div className="reward rp">
                     <span>RP</span>
+
                     <strong>
-                      +{Math.round(quest.xp / 4)}
+                      +{Math.round(
+                        quest.xp / 4
+                      )}
                     </strong>
                   </div>
 
@@ -378,9 +534,13 @@ function Quests() {
 
                   <button
                     className={`complete-btn ${
-                      completed ? "undo" : ""
+                      completed
+                        ? "undo"
+                        : ""
                     }`}
-                    onClick={() => handleComplete(quest)}
+                    onClick={() =>
+                      handleComplete(quest)
+                    }
                     disabled={busy}
                   >
                     {busy
@@ -393,7 +553,9 @@ function Quests() {
                   <button
                     className="delete-btn"
                     onClick={() =>
-                      handleDelete(quest._id)
+                      handleDelete(
+                        quest._id
+                      )
                     }
                     disabled={busy}
                   >
@@ -409,42 +571,59 @@ function Quests() {
 
       </main>
 
-      {/* CREATE MODAL */}
+      {/* ================================
+          CREATE MODAL
+      ================================= */}
 
       {showModal && (
+
         <div
           className="modal-overlay"
-          onClick={() => setShowModal(false)}
+          onClick={() =>
+            setShowModal(false)
+          }
         >
+
           <div
             className="quest-modal"
-            onClick={(e) => e.stopPropagation()}
+            onClick={(e) =>
+              e.stopPropagation()
+            }
           >
 
             <div className="modal-header">
 
               <div>
+
                 <p className="eyebrow">
                   NEW MISSION
                 </p>
 
-                <h2>CREATE QUEST</h2>
+                <h2>
+                  CREATE QUEST
+                </h2>
+
               </div>
 
               <button
                 className="modal-close"
-                onClick={() => setShowModal(false)}
+                onClick={() =>
+                  setShowModal(false)
+                }
               >
                 ×
               </button>
 
             </div>
 
-            <form onSubmit={handleCreateQuest}>
+            <form
+              onSubmit={handleCreateQuest}
+            >
 
               {/* TITLE */}
 
               <label>
+
                 QUEST TITLE
 
                 <input
@@ -458,50 +637,78 @@ function Quests() {
                     })
                   }
                 />
+
               </label>
 
               {/* DESCRIPTION */}
 
               <label>
+
                 DESCRIPTION
 
                 <textarea
                   placeholder="Describe the mission..."
-                  value={newQuest.description}
+                  value={
+                    newQuest.description
+                  }
                   onChange={(e) =>
                     setNewQuest({
                       ...newQuest,
-                      description: e.target.value,
+                      description:
+                        e.target.value,
                     })
                   }
                 />
+
               </label>
 
               {/* CATEGORY */}
 
               <label>
+
                 CATEGORY
 
                 <select
-                  value={newQuest.category}
+                  value={
+                    newQuest.category
+                  }
                   onChange={(e) =>
                     setNewQuest({
                       ...newQuest,
-                      category: e.target.value,
+                      category:
+                        e.target.value,
                     })
                   }
                 >
-                  <option value="STUDY">STUDY</option>
-                  <option value="FITNESS">FITNESS</option>
-                  <option value="PERSONAL">PERSONAL</option>
-                  <option value="CAREER">CAREER</option>
-                  <option value="GENERAL">GENERAL</option>
+
+                  <option value="STUDY">
+                    STUDY
+                  </option>
+
+                  <option value="FITNESS">
+                    FITNESS
+                  </option>
+
+                  <option value="PERSONAL">
+                    PERSONAL
+                  </option>
+
+                  <option value="CAREER">
+                    CAREER
+                  </option>
+
+                  <option value="GENERAL">
+                    GENERAL
+                  </option>
+
                 </select>
+
               </label>
 
               {/* TYPE */}
 
               <label>
+
                 QUEST TYPE
 
                 <select
@@ -513,32 +720,64 @@ function Quests() {
                     })
                   }
                 >
-                  <option value="DAILY">DAILY</option>
-                  <option value="SIDE">SIDE</option>
-                  <option value="EPIC">EPIC</option>
+
+                  <option value="DAILY">
+                    DAILY
+                  </option>
+
+                  <option value="SIDE">
+                    SIDE
+                  </option>
+
+                  <option value="EPIC">
+                    EPIC
+                  </option>
+
                 </select>
+
               </label>
 
               {/* DIFFICULTY */}
 
               <label>
+
                 DIFFICULTY
 
                 <select
-                  value={newQuest.difficulty}
+                  value={
+                    newQuest.difficulty
+                  }
                   onChange={(e) =>
                     setNewQuest({
                       ...newQuest,
-                      difficulty: e.target.value,
+                      difficulty:
+                        e.target.value,
                     })
                   }
                 >
-                  <option value="1">★ EASY</option>
-                  <option value="2">★★ NORMAL</option>
-                  <option value="3">★★★ HARD</option>
-                  <option value="4">★★★★ ELITE</option>
-                  <option value="5">★★★★★ BOSS</option>
+
+                  <option value="1">
+                    ★ EASY
+                  </option>
+
+                  <option value="2">
+                    ★★ NORMAL
+                  </option>
+
+                  <option value="3">
+                    ★★★ HARD
+                  </option>
+
+                  <option value="4">
+                    ★★★★ ELITE
+                  </option>
+
+                  <option value="5">
+                    ★★★★★ BOSS
+                  </option>
+
                 </select>
+
               </label>
 
               {/* XP + GOLD */}
@@ -546,6 +785,7 @@ function Quests() {
               <div className="reward-inputs">
 
                 <label>
+
                   XP
 
                   <input
@@ -559,9 +799,11 @@ function Quests() {
                       })
                     }
                   />
+
                 </label>
 
                 <label>
+
                   GOLD
 
                   <input
@@ -575,6 +817,7 @@ function Quests() {
                       })
                     }
                   />
+
                 </label>
 
               </div>
@@ -589,7 +832,9 @@ function Quests() {
             </form>
 
           </div>
+
         </div>
+
       )}
 
     </div>

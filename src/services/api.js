@@ -1,5 +1,5 @@
-const API_URL = "https://liferpg-api-nx4m.onrender.com/api";
-// const API_URL = "http://localhost:5000/api";
+//const API_URL = "https://liferpg-api-nx4m.onrender.com/api";
+const API_URL = "http://localhost:5000/api";
 export async function registerUser(userData) {
   console.log("REGISTER REQUEST:", userData);
 
@@ -150,6 +150,21 @@ export async function updateCharacter(userId, character) {
   if (!response.ok) {
     throw new Error(
       data.message || "Could not update character"
+    );
+  }
+
+  return data;
+}
+export async function getUserProfile(userId) {
+  const response = await fetch(
+    `${API_URL}/auth/user/${userId}`
+  );
+
+  const data = await response.json();
+
+  if (!response.ok) {
+    throw new Error(
+      data.message || "Could not load user profile"
     );
   }
 

@@ -7,7 +7,7 @@ import Lobby from "./pages/Lobby";
 import Quests from "./pages/Quests";
 import Ranked from "./pages/Ranked";
 import Leaderboard from "./pages/Leaderboard";
-
+import Achievements from "./pages/Achievements";
 function App() {
   return (
     <BrowserRouter>
@@ -19,6 +19,7 @@ function App() {
         <Route path="/quests" element={<Quests />} />
         <Route path="/ranked" element={<Ranked />} />
         <Route path="/leaderboard" element={<Leaderboard />} />
+        <Route path="/achievements" element={<Achievements />} />
       </Routes>
     </BrowserRouter>
   );
